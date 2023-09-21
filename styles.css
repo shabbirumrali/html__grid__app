@@ -1,0 +1,32 @@
+.main_container {
+    text-align: center;
+}
+.common {
+    width: 100%;
+    padding: 20px;
+}
+.grid__container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: repeat(2, 1fr);
+    justify-items: stretch;
+    align-items: stretch;
+}
+.item_1 {
+    background: #fedddd;
+}
+.item_2 {
+    background: #f9fedd;
+}
+.item_3 {
+    background: #e2fedd;
+}
+.item_4 {
+    background: #ddfefe;
+}
+.item_5 {
+    background: #e9ddfe;
+}
+.item_6 {
+    background: #feddf4;
+}
