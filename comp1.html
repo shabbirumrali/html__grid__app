@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Component 1</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+</head>
+<body>
+    <div class="main_container">
+        <h2>Layoyt 1</h2>
+
+        <!-- Navigation -->
+        <nav class="nav">
+            <div class="logo">
+                <a href="/index.html">Logo</a>
+            </div>
+
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="./comp1.html">Component 1</a></li>
+                <li><a href="./comp2.html">Component 2</a></li>
+
+            </ul>
+        </nav>
+
+        <div class="l1_main_container grid__container_layouts">
+            <div class="item_l1_a">
+                <h1>Product Details</h1>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim nisi quia,</p>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim nisi quia,</p>
+            </div>
+            <div class="item_l1_b">Bottom Image 1</div>
+            <div class="item_l1_c">Bottom Image 2</div>
+            <div class="item_l1_d">side Image 3</div>
+        </div>
+    </div>
+
+    <canvas id="chart" width="400" height="400"></canvas>
+
+    <script>
+        chartir();
+
+        async function chartir() {
+            const data = await fetchCSVData();
+            const ctx = document.getElementById('chart');
+            new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: data.xLabels,
+                datasets: [{
+                fill: false,
+                color: '#666',
+                backgroundColor: '#9BD0F5',
+                borderColor: '#9BD0F5',
+                label: 'Combined Land-Surface Air and Sea-Surface Water Temperature ℃',
+                data: data.xTemp,
+                borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            // Include a dollar sign in the ticks
+                            callback: function(value, index, values) {
+                                return value + '°';
+                            }
+                        }
+                    }]
+                }
+            }
+        });
+        }
+        
+        async function fetchCSVData () {
+            const xLabels = [];
+            const xTemp = [];
+            const res = await fetch('./data/ZonAnn.Ts+dSST.csv');
+            const data = await res.text();
+            const table = data.split('\n').slice(1);
+            
+            table.forEach(row => {
+                const colums = row.split(',');
+                const year = colums[0];
+                xLabels.push(year);
+                const temp = colums[1];
+                xTemp.push(parseFloat(temp) + 14);
+                // 2013, 0.12, 0.43
+                // [2013, 0.12, 0.43]
+                console.log(year, temp);
+            })
+            return { xLabels, xTemp }
+        }
+    </script>
+</body>
+</html>

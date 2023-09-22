@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comp 2</title>
+    <link rel="stylesheet" href="./styles.css">
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.min.js" integrity="sha512-7U4rRB8aGAHGVad3u2jiC7GA5/1YhQcQjxKeaVms/bT66i3LVBMRcBI9KwABNWnxOSwulkuSXxZLGuyfvo7V1A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+</head>
+<body>
+    <div class="main_container">
+        <h2>Layout 2</h2>
+
+        <!-- Navigation -->
+        <nav class="nav">
+            <div class="logo">
+                <a href="/index.html">Logo</a>
+            </div>
+
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="./comp1.html">Component 1</a></li>
+                <li><a href="./comp2.html">Component 2</a></li>
+            </ul>
+        </nav>
+    </div>
+    <script>
+        const fetchCSV = async () => {
+            const res = await fetch('./data/test1.csv');
+            const data = await res.text();
+
+            const table = data.split('\n').slice(1);
+            table.forEach((row) => {
+                const colums = row.split(',');
+                const year = colums[0];
+                const jan = colums[1];
+                const feb = colums[2];
+                console.log(year, jan, feb)
+            })
+        }
+        fetchCSV();
+    </script>
+</body>
+</html>
